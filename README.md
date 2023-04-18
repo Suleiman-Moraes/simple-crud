@@ -10,6 +10,11 @@
 - Swagger
 - JWT Authenticate
 
+## Links:
+
+- {host}/v3/api-docs
+- {host}/swagger-ui/index.html
+
 ## Plugins VSCode:
 
 - Coverage Gutters

@@ -12,6 +12,7 @@ public class Messages {
     private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
 
     public static final String RESOURCE_NOT_FOUND = "resource_not_found";
+    public static final String USER_NOT_PERMISSION = "user_not_permission";
 
     private Messages() {
     }
