@@ -9,6 +9,8 @@
 - Unit Tests
 - Swagger
 - JWT Authenticate
+- Lombok
+- H2
 
 ## Links:
 
