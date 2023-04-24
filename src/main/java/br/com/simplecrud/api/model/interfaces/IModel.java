@@ -1,6 +1,6 @@
 package br.com.simplecrud.api.model.interfaces;
 
-public interface IModel {
-    
-    Long getKey();
+public interface IModel<I> {
+
+    I getKey();
 }

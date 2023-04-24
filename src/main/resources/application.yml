@@ -10,12 +10,17 @@ spring:
       enabled: true # habilita a console do H2
   jpa:
     show-sql: true
-    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: update
     properties: 
       hibernate: 
         format_sql: true
+
+springdoc:
+  pathsToMatch: /api/v1/**
+  swagger-ui:
+    use-root-path: true
 
 cors:
   originPatters: http://localhost:8080,http://localhost:4200

@@ -14,29 +14,40 @@ import br.com.simplecrud.api.exception.ResourceNotFoundException;
 import br.com.simplecrud.api.model.interfaces.IModel;
 import br.com.simplecrud.mapper.Mapper;
 
-public interface IConverterService<M extends IModel> {
+/**
+ * E = Entity
+ * I = ID
+ * Methods:
+ * - <T extends RepresentationModel<T>> List<T> parseObjects(List<E> listE,
+ * Class<T> clazz, Class<? extends IController<?, I>> controllerClass);
+ * - <T extends RepresentationModel<T>> T parseObject(E e, Class<T> clazz,
+ * Class<? extends IController<?, I>> controllerClass);
+ * - <T extends RepresentationModel<T>> T parseObjectAfterValid(E e, Class<T>
+ * clazz, Class<? extends IController<?, I>> controllerClass);
+ */
+public interface IConverterService<E extends IModel<I>, I> {
 
-    default <T extends RepresentationModel<T>> List<T> parseObjects(List<M> listM, Class<T> clazz,
-            Class<? extends IController<?>> controllerClass) {
-        if (CollectionUtils.isEmpty(listM)) {
+    default <T extends RepresentationModel<T>> List<T> parseObjects(List<E> listE, Class<T> clazz,
+            Class<? extends IController<?, I>> controllerClass) {
+        if (CollectionUtils.isEmpty(listE)) {
             throw new ResourceNotFoundException();
         }
-        return listM.stream().map((M m) -> parseObjectAfterValid(m, clazz, controllerClass))
+        return listE.stream().map((E e) -> parseObjectAfterValid(e, clazz, controllerClass))
                 .collect(Collectors.toList());
     }
 
-    default <T extends RepresentationModel<T>> T parseObject(M m, Class<T> clazz,
-            Class<? extends IController<?>> controllerClass) {
-        if (m == null || m.getKey() == null) {
+    default <T extends RepresentationModel<T>> T parseObject(E e, Class<T> clazz,
+            Class<? extends IController<?, I>> controllerClass) {
+        if (e == null || e.getKey() == null) {
             throw new ResourceNotFoundException();
         }
-        return parseObjectAfterValid(m, clazz, controllerClass);
+        return parseObjectAfterValid(e, clazz, controllerClass);
     }
 
-    default <T extends RepresentationModel<T>> T parseObjectAfterValid(M m, Class<T> clazz,
-            Class<? extends IController<?>> controllerClass) {
-        T t = Mapper.parseObject(m, clazz);
-        t.add(linkTo(methodOn(controllerClass).findByKey(m.getKey())).withSelfRel());
+    default <T extends RepresentationModel<T>> T parseObjectAfterValid(E e, Class<T> clazz,
+            Class<? extends IController<?, I>> controllerClass) {
+        T t = Mapper.parseObject(e, clazz);
+        t.add(linkTo(methodOn(controllerClass).findByKey(e.getKey())).withSelfRel());
         return t;
     }
 }

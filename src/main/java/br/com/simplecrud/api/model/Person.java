@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table(name = "person")
-public class Person implements Serializable, IModel {
+public class Person implements Serializable, IModel<Long> {
 
     @Id
     @Column(name = "id")
