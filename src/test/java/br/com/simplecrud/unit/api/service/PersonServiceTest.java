@@ -83,7 +83,6 @@ class PersonServiceTest {
 
     @Test
     void testInsert() {
-        when(service.save(entity)).thenReturn(entity);
         assertEquals(key, service.insert(entity), "Return not equal");
     }
 

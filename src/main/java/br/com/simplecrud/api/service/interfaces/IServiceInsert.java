@@ -11,6 +11,7 @@ import br.com.simplecrud.api.model.interfaces.IModel;
 public interface IServiceInsert<E extends IModel<I>, I> extends IServiceGetRepository<E, I> {
 
     default I insert(E object) {
-        return getRepository().save(object).getKey();
+        getRepository().save(object);
+        return object.getKey();
     }
 }
