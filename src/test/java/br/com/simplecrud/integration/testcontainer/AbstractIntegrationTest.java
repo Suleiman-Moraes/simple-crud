@@ -15,7 +15,7 @@ import org.testcontainers.lifecycle.Startables;
 public abstract class AbstractIntegrationTest {
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    public class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+    static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
         static MySQLContainer<?> mysql = new MySQLContainer<>("mysql:8.0.29");
 
         private static void startContainers() {
