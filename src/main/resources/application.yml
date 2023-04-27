@@ -23,7 +23,7 @@ springdoc:
     use-root-path: true
 
 cors:
-  originPatters: http://localhost:8080,http://localhost:4200
+  originPatterns: http://localhost:8080,http://localhost:4200
 # flyway:
 #   enabled: true
 #   validate-on-migrate: true
