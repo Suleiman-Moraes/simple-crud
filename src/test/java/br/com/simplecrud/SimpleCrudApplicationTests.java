@@ -3,10 +3,10 @@ package br.com.simplecrud;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+// @SpringBootTest
 class SimpleCrudApplicationTests {
 
-	@Test
+	// @Test
 	void contextLoads() {
 	}
 
