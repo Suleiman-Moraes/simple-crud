@@ -8,6 +8,8 @@ import java.util.List;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +30,24 @@ public class CustomizeResponseEntityExceptionHandler extends ResponseEntityExcep
     @ExceptionHandler(value = { Exception.class })
     public static final ResponseEntity<ExceptionResponse> handleAllExceptions(Exception ex, WebRequest request) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ExceptionResponse.builder()
+                .userMessages(Arrays.asList(ex.getMessage()))
+                .devMessage(ExceptionUtils.getRootCauseMessage(ex))
+                .description(request.getDescription(false))
+                .build());
+    }
+
+    @ExceptionHandler(value = { UsernameNotFoundException.class })
+    public static final ResponseEntity<ExceptionResponse> handleExceptionsNotFound(Exception ex, WebRequest request) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ExceptionResponse.builder()
+                .userMessages(Arrays.asList(ex.getMessage()))
+                .devMessage(ExceptionUtils.getRootCauseMessage(ex))
+                .description(request.getDescription(false))
+                .build());
+    }
+
+    @ExceptionHandler(value = { AuthenticationException.class })
+    public static final ResponseEntity<ExceptionResponse> handleExceptionsForbidden(Exception ex, WebRequest request) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ExceptionResponse.builder()
                 .userMessages(Arrays.asList(ex.getMessage()))
                 .devMessage(ExceptionUtils.getRootCauseMessage(ex))
                 .description(request.getDescription(false))

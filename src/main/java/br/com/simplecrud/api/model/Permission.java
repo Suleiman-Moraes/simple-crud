@@ -2,9 +2,12 @@ package br.com.simplecrud.api.model;
 
 import org.springframework.security.core.GrantedAuthority;
 
+import br.com.simplecrud.api.model.enums.RoleEnum;
 import br.com.simplecrud.api.model.interfaces.IModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,7 +31,13 @@ public class Permission implements IModel<Long>, GrantedAuthority {
     private Long key;
 
     @Column(nullable = false, unique = true)
-    private String authority;
+    @Enumerated(EnumType.STRING)
+    private RoleEnum role;
 
     private String description;
+
+    @Override
+    public String getAuthority() {
+        return role != null ? role.toString() : null;
+    }
 }

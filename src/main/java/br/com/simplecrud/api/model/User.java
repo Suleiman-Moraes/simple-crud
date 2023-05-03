@@ -1,7 +1,5 @@
 package br.com.simplecrud.api.model;
 
-import static br.com.simplecrud.api.util.Constant.ROLE_UNDERLINE;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -61,7 +59,7 @@ public class User implements IModel<Long>, UserDetails {
     public List<String> getRoles() {
         return CollectionUtils.isEmpty(authorities) ? new LinkedList<>()
                 : authorities.stream()
-                        .map(a -> new StringBuilder(ROLE_UNDERLINE).append(a.getAuthority()).toString())
+                        .map(a -> a.getRole().getRoleUnderline())
                         .toList();
     }
 }
