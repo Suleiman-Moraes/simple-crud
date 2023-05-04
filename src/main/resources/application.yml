@@ -24,6 +24,12 @@ springdoc:
 
 cors:
   originPatterns: http://localhost:8080,http://localhost:4200
+
+security:
+  jwt:
+    token:
+      secret-key: Secrettest3
+      expire-lenght: 3600000
 # flyway:
 #   enabled: true
 #   validate-on-migrate: true
