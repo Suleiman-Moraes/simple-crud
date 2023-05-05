@@ -20,16 +20,13 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
 import br.com.simplecrud.api.model.dto.security.TokenDTO;
-import br.com.simplecrud.api.util.Constant;
+import br.com.simplecrud.api.util.Constants;
 import br.com.simplecrud.config.Messages;
-import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
-@AllArgsConstructor
 public class JwtTokenProvider {
 
     private static final long ONE_HOUR = 3_600_000;
@@ -37,15 +34,15 @@ public class JwtTokenProvider {
     @Value("${security.jwt.token.secret-key:secret}")
     private String secretKey = "secret";
 
-    @Value("${security.jwt.token.expire-lenght:3600000}")
+    @Value("${security.jwt.token.expire-length:3600000}")
     private long validityInMilliseconds = ONE_HOUR;
 
     private UserDetailsService userDetailsService;
 
-    private Algorithm algorithm = null;
+    private Algorithm algorithm;
 
-    @PostConstruct
-    protected void init() {
+    public JwtTokenProvider(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
         algorithm = Algorithm.HMAC256(secretKey.getBytes());
     }
@@ -70,8 +67,8 @@ public class JwtTokenProvider {
     }
 
     public String resolveToken(HttpServletRequest request) {
-        final String bearer = Constant.BEARER + " ";
-        final String bearerToken = request.getHeader(Constant.AUTHORIZATION);
+        final String bearer = Constants.BEARER + " ";
+        final String bearerToken = request.getHeader(Constants.AUTHORIZATION);
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(bearer)) {
             return bearerToken.substring(bearer.length());
         }
@@ -103,7 +100,7 @@ public class JwtTokenProvider {
     private String getRefreshToken(String username, List<String> roles, Date now) {
         return JWT.create().withClaim("roles", roles)
                 .withIssuedAt(now)
-                .withExpiresAt(new Date(now.getTime() + (validityInMilliseconds + Constant.THREE)))
+                .withExpiresAt(new Date(now.getTime() + (validityInMilliseconds + Constants.THREE)))
                 .withSubject(username)
                 .sign(algorithm).strip();
     }

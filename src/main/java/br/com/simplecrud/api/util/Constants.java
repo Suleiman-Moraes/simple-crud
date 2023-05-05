@@ -1,6 +1,6 @@
 package br.com.simplecrud.api.util;
 
-public final class Constant {
+public final class Constants {
 
     public static final String AUTHORIZATION = "Authorization";
     public static final String BASIC = "Basic";
@@ -10,8 +10,9 @@ public final class Constant {
     // numbers
     public static final Integer TWO = 2;
     public static final Integer THREE = 3;
+    public static final Integer EIGHT = 8;
 
-    private Constant() {
+    private Constants() {
         // empty
     }
 }

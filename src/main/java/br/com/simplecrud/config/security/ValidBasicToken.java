@@ -9,7 +9,7 @@ import java.util.Map;
 import org.springframework.util.StringUtils;
 
 import br.com.simplecrud.api.exception.UnauthorizedBasic;
-import br.com.simplecrud.api.util.Constant;
+import br.com.simplecrud.api.util.Constants;
 import br.com.simplecrud.config.ManualConnection;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -23,12 +23,12 @@ public final class ValidBasicToken {
 
     public static int valid(HttpServletRequest request) {
         try {
-            final String authorization = request.getHeader(Constant.AUTHORIZATION);
+            final String authorization = request.getHeader(Constants.AUTHORIZATION);
             if (StringUtils.hasText(authorization) &&
-                    authorization.toUpperCase().contains(Constant.BASIC.toUpperCase())) {
+                    authorization.toUpperCase().contains(Constants.BASIC.toUpperCase())) {
                 final String[] loginPassword = new String(Base64.getDecoder().decode(authorization.substring(6)))
                         .split(":");
-                if (loginPassword.length == Constant.TWO) {
+                if (loginPassword.length == Constants.TWO) {
                     ManualConnection.getConnection();
                     listar();
                     ManualConnection.closeConnection();

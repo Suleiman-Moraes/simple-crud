@@ -17,6 +17,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -56,6 +57,7 @@ public class User implements IModel<Long>, UserDetails {
             @JoinColumn(name = "id_permission") })
     private List<Permission> authorities;
 
+    @Transient
     public List<String> getRoles() {
         return CollectionUtils.isEmpty(authorities) ? new LinkedList<>()
                 : authorities.stream()

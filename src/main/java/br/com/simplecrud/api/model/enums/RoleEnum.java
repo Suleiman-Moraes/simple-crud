@@ -1,6 +1,6 @@
 package br.com.simplecrud.api.model.enums;
 
-import br.com.simplecrud.api.util.Constant;
+import br.com.simplecrud.api.util.Constants;
 
 public enum RoleEnum {
     ADMIN,
@@ -8,6 +8,6 @@ public enum RoleEnum {
     COMMON_USER;
 
     public String getRoleUnderline() {
-        return new StringBuilder(Constant.ROLE_UNDERLINE).append(this).toString();
+        return new StringBuilder(Constants.ROLE_UNDERLINE).append(this).toString();
     }
 }

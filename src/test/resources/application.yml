@@ -25,7 +25,7 @@ security:
   jwt:
     token:
       secret-key: Secrettest3
-      expire-lenght: 3600000
+      expire-length: 3600000
 # flyway:
 #   enabled: true
 #   validate-on-migrate: true
