@@ -22,7 +22,7 @@ public final class Messages {
         try {
             return RESOURCE_BUNDLE.getString(key);
         } catch (MissingResourceException e) {
-            log.warn(e.getMessage(), e);
+            log.debug(e.getMessage(), e);
             return key;
         }
     }
@@ -31,7 +31,7 @@ public final class Messages {
         try {
             return new MessageFormat(getMessage(key)).format(params);
         } catch (MissingResourceException e) {
-            log.warn(e.getMessage(), e);
+            log.debug(e.getMessage(), e);
             return key;
         }
     }

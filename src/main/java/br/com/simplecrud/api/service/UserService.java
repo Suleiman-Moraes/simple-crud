@@ -22,4 +22,9 @@ public class UserService implements IUserService {
         return repository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(Messages.getMessage("user_not_found")));
     }
+
+    @Override
+    public boolean existsByUsername(String username) {
+        return repository.existsByUsername(username);
+    }
 }

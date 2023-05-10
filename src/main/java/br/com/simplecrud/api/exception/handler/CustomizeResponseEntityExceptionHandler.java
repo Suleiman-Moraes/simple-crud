@@ -8,14 +8,16 @@ import java.util.List;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.auth0.jwt.exceptions.JWTDecodeException;
+
+import br.com.simplecrud.api.exception.JwtAuthenticationException;
 import br.com.simplecrud.api.exception.PatternException;
 import br.com.simplecrud.api.exception.ValidException;
 import lombok.AllArgsConstructor;
@@ -24,7 +26,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @ControllerAdvice
-@RestController
 public class CustomizeResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = { Exception.class })
@@ -45,7 +46,7 @@ public class CustomizeResponseEntityExceptionHandler extends ResponseEntityExcep
                 .build());
     }
 
-    @ExceptionHandler(value = { AuthenticationException.class })
+    @ExceptionHandler({ JwtAuthenticationException.class, JWTDecodeException.class, AccessDeniedException.class })
     public static final ResponseEntity<ExceptionResponse> handleExceptionsForbidden(Exception ex, WebRequest request) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ExceptionResponse.builder()
                 .userMessages(Arrays.asList(ex.getMessage()))

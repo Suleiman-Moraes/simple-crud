@@ -4,8 +4,6 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
-import javax.security.sasl.AuthenticationException;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,15 +17,20 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
+import br.com.simplecrud.api.exception.JwtAuthenticationException;
 import br.com.simplecrud.api.model.dto.security.TokenDTO;
 import br.com.simplecrud.api.util.Constants;
-import br.com.simplecrud.config.Messages;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
 public class JwtTokenProvider {
+
+    /**
+     *
+     */
+    private static final String ROLES = "roles";
 
     private static final long ONE_HOUR = 3_600_000;
 
@@ -75,21 +78,32 @@ public class JwtTokenProvider {
         return null;
     }
 
-    public boolean validateToken(String token) throws AuthenticationException {
+    public boolean validateToken(String token) throws JwtAuthenticationException {
         try {
             return !decodedToken(token).getExpiresAt().before(new Date());
         } catch (Exception e) {
             log.warn("validateToken " + e.getMessage(), e);
-            throw new AuthenticationException(Messages.getMessage("expire_or_invalid_token"));
+            throw new JwtAuthenticationException();
         }
     }
 
+    public TokenDTO refreshToken(String refreshToken) {
+        final String bearer = Constants.BEARER + " ";
+        if (StringUtils.hasText(refreshToken) && refreshToken.contains(bearer)) {
+            refreshToken = refreshToken.substring(bearer.length());
+        }
+        final DecodedJWT decodedJWT = decodedToken(refreshToken);
+        final String username = decodedJWT.getSubject();
+        final List<String> roles = decodedJWT.getClaim(ROLES).asList(String.class);
+        return createAccessToken(username, roles);
+    }
+
     private DecodedJWT decodedToken(String token) {
-        return JWT.require(Algorithm.HMAC256(secretKey.getBytes())).build().verify(token);
+        return JWT.require(algorithm).build().verify(token);
     }
 
     private String getAccessToken(String username, List<String> roles, Date now, Date validity) {
-        return JWT.create().withClaim("roles", roles)
+        return JWT.create().withClaim(ROLES, roles)
                 .withIssuedAt(now)
                 .withExpiresAt(validity)
                 .withSubject(username)
@@ -98,7 +112,7 @@ public class JwtTokenProvider {
     }
 
     private String getRefreshToken(String username, List<String> roles, Date now) {
-        return JWT.create().withClaim("roles", roles)
+        return JWT.create().withClaim(ROLES, roles)
                 .withIssuedAt(now)
                 .withExpiresAt(new Date(now.getTime() + (validityInMilliseconds + Constants.THREE)))
                 .withSubject(username)

@@ -32,28 +32,11 @@ public class SecurityConfig {
     private static final String PBKDF2 = "pbkdf2";
     private static final int ITERATIONS = 185_000;
 
-    // Verificar posteriormente se vai funcionar
-    // @Bean
-    // SecurityFilterChain securityFilterChain2(HttpSecurity http) throws Exception {
-    //     return http
-    //             .httpBasic().disable()
-    //             .csrf(AbstractHttpConfigurer::disable)
-    //             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-    //             .authorizeHttpRequests(
-    //                     getAuthorizeHttpRequests())
-    //             .cors()
-    //             .and()
-    //             .apply(new JwtConfigurer(jwtTokenProvider))
-    //             .and()
-    //             .build();
-
-    // }
-
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         final String[] patterns = { "/auth/signin", "/auth/refresh/**", "/swagger-ui/**", "/v3/api-docs/**" };
         return http
-                .httpBasic(withDefaults())
+                .httpBasic(basic -> basic.disable())
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(

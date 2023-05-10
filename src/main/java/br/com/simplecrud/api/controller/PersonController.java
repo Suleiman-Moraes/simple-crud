@@ -57,8 +57,9 @@ public class PersonController implements IController<PersonDTO, Long> {
 
     @PostMapping
     public ResponseEntity<Long> insert(@RequestBody PersonDTO object) {
+        final Long id = service.insert(Mapper.parseObject(object, Person.class));
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(service.insert(Mapper.parseObject(object, Person.class))).toUri()).build();
+                .buildAndExpand(id).toUri()).body(id);
     }
 
     @PutMapping(value = "/{id}")
