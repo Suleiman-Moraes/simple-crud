@@ -1,7 +1,7 @@
 package br.com.simplecrud.config.security.interfaces;
 
-import br.com.simplecrud.api.model.dto.security.AccountCredentialsDTO;
-import br.com.simplecrud.api.model.dto.security.TokenDTO;
+import br.com.simplecrud.config.security.dto.AccountCredentialsDTO;
+import br.com.simplecrud.config.security.dto.TokenDTO;
 
 public interface IAuthService {
     

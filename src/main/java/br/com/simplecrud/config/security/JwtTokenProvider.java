@@ -18,8 +18,8 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
 import br.com.simplecrud.api.exception.JwtAuthenticationException;
-import br.com.simplecrud.api.model.dto.security.TokenDTO;
 import br.com.simplecrud.api.util.Constants;
+import br.com.simplecrud.config.security.dto.TokenDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 

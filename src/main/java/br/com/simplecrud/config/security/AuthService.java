@@ -7,10 +7,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import br.com.simplecrud.api.model.User;
-import br.com.simplecrud.api.model.dto.security.AccountCredentialsDTO;
-import br.com.simplecrud.api.model.dto.security.TokenDTO;
 import br.com.simplecrud.api.service.interfaces.IUserService;
 import br.com.simplecrud.config.Messages;
+import br.com.simplecrud.config.security.dto.AccountCredentialsDTO;
+import br.com.simplecrud.config.security.dto.TokenDTO;
 import br.com.simplecrud.config.security.interfaces.IAuthService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

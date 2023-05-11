@@ -1,4 +1,4 @@
-package br.com.simplecrud.api.model.dto.security;
+package br.com.simplecrud.config.security.dto;
 
 import java.io.Serializable;
 
