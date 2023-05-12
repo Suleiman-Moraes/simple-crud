@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.simplecrud.api.model.User;
 import br.com.simplecrud.api.service.interfaces.IUserService;
-import br.com.simplecrud.config.Messages;
+import br.com.simplecrud.api.util.Messages;
 import br.com.simplecrud.config.security.dto.AccountCredentialsDTO;
 import br.com.simplecrud.config.security.dto.TokenDTO;
 import br.com.simplecrud.config.security.interfaces.IAuthService;

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.simplecrud.api.service.interfaces.IBasicTokenService;
 import br.com.simplecrud.api.util.Constants;
-import br.com.simplecrud.config.Messages;
+import br.com.simplecrud.api.util.Messages;
 import br.com.simplecrud.config.security.dto.AccountCredentialsDTO;
 import br.com.simplecrud.config.security.dto.TokenDTO;
 import br.com.simplecrud.config.security.interfaces.IAuthService;

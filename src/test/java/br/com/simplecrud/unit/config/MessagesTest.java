@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import br.com.simplecrud.config.Messages;
+import br.com.simplecrud.api.util.Messages;
 
 class MessagesTest {
 

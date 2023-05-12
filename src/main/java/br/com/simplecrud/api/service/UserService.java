@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.simplecrud.api.repository.IUserRepository;
 import br.com.simplecrud.api.service.interfaces.IUserService;
-import br.com.simplecrud.config.Messages;
+import br.com.simplecrud.api.util.Messages;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

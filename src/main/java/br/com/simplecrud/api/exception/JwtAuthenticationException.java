@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import br.com.simplecrud.config.Messages;
+import br.com.simplecrud.api.util.Messages;
 
 @ResponseStatus(HttpStatus.FORBIDDEN)
 public class JwtAuthenticationException extends AuthenticationException {

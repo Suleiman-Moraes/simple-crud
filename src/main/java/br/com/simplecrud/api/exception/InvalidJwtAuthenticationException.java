@@ -3,7 +3,7 @@ package br.com.simplecrud.api.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import br.com.simplecrud.config.Messages;
+import br.com.simplecrud.api.util.Messages;
 
 @ResponseStatus(HttpStatus.FORBIDDEN)
 public class InvalidJwtAuthenticationException extends PatternException {

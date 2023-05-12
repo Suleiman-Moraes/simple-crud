@@ -1,4 +1,4 @@
-package br.com.simplecrud.config;
+package br.com.simplecrud.api.util;
 
 import java.text.MessageFormat;
 import java.util.MissingResourceException;
