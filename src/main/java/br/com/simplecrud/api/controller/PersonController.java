@@ -26,6 +26,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @Tag(name = "People", description = "Endpoints for Managing People")
@@ -56,7 +57,7 @@ public class PersonController implements IController<PersonDTO, Long> {
     }
 
     @PostMapping
-    public ResponseEntity<Long> insert(@RequestBody PersonDTO object) {
+    public ResponseEntity<Long> insert(@RequestBody @Valid PersonDTO object) {
         final Long id = service.insert(Mapper.parseObject(object, Person.class));
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(id).toUri()).body(id);

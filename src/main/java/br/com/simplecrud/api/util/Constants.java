@@ -6,6 +6,7 @@ public final class Constants {
     public static final String BASIC = "Basic";
     public static final String BEARER = "Bearer";
     public static final String ROLE_UNDERLINE = "ROLE_";
+    public static final String JOKER = "####";
 
     // numbers
     public static final Integer TWO = 2;
